@@ -53,6 +53,10 @@ public:
     QPushButton* m_pcmdSaveFile;
     QPushButton* m_pcmdOpenFile;
 
+    //Optimizing panel
+    QPushButton* m_pcmdOptimize;
+    QSpinBox* m_pspinMemory;
+
     //Label's buttons
     QPushButton* m_pcmdLabelGlobal;
     QPushButton* m_pcmdLabelLocal;
@@ -358,6 +362,11 @@ private:
     void loadAllPanels(void);
     int m_nNumberOfLine;
 
+    void insertNOP(int line);
+    void insertNOPs(int line, int count);
+    void insertNopBeforeCycle(int begin, int);
+    void insertNopToCycle(int, int end);
+
 public slots:
     void makeLabelGlobal(void);
     void makeLabelLocal(void);
@@ -485,9 +494,9 @@ public slots:
     void lineCancel(void);    
     void saveFile(void);
     void openFile(void);
-    void exitApp(void);
-    void insertNOP(int line);
-    void insertNOPs(int line, int count);
+    void exitApp(void);    
+
+    void doOptimize(void);
 };
 
 #endif // MAINWINDOW_H

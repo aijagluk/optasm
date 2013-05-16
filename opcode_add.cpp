@@ -151,7 +151,7 @@ void GOpcodeADD::analyse(void){
 
     int EA_ticks = 0;
 
-    if((oper1 == BASE_REGISTER && oper2 == BASE_REGISTER)){
+    if(((oper1 == BASE_REGISTER || oper1 == ACCUMULATOR) && oper2 == BASE_REGISTER)){
         m_nTicks = 3;
         m_nBytes = 2;
     }

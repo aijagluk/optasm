@@ -636,6 +636,19 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pcmdSaveFile = new QPushButton("Сохранить");
     m_pcmdOpenFile = new QPushButton("Открыть");
 
+    //Optimizing panel
+    m_pcmdOptimize = new QPushButton("Оптимизация");
+    m_pspinMemory = new QSpinBox();
+    m_pspinMemory->setRange(0, 1024);
+    m_pspinMemory->setValue(8);
+    m_pspinMemory->setButtonSymbols(QSpinBox::PlusMinus);
+    m_pspinMemory->setSuffix(" Б");
+    QLabel* plblOptimizing = new QLabel("Выделить");
+    QVBoxLayout* pvblOptimizing = new QVBoxLayout();
+    pvblOptimizing->addWidget(plblOptimizing);
+    pvblOptimizing->addWidget(m_pspinMemory);
+    pvblOptimizing->addWidget(m_pcmdOptimize);
+
     m_pcmdQuit = new QPushButton("Выход");
 
     //number of line
@@ -654,16 +667,19 @@ MainWindow::MainWindow(QWidget *parent) :
     pvblNumbersOfLine->addWidget(m_pcmdLineUp);
     pvblNumbersOfLine->setSpacing(0);
 
+    pvblLeftPanel->addWidget(m_pcmdOpenFile, Qt::AlignBottom);
+    pvblLeftPanel->addWidget(m_pcmdSaveFile, Qt::AlignBottom);
+    pvblLeftPanel->addStretch(1);
     pvblLeftPanel->addWidget(m_pcmdAddData, Qt::AlignTop);
     pvblLeftPanel->addWidget(m_pcmdAddOpcode, Qt::AlignTop);
     pvblLeftPanel->addWidget(m_pcmdAddLabel, Qt::AlignTop);
     pvblLeftPanel->addWidget(m_pcmdAddDirective, Qt::AlignTop);
-    pvblLeftPanel->addWidget(m_pcmdAddComment, Qt::AlignTop);
-    pvblLeftPanel->addStretch(1);
+    pvblLeftPanel->addWidget(m_pcmdAddComment, Qt::AlignTop);    
+    pvblLeftPanel->addStretch(3);
     pvblLeftPanel->addLayout(pvblNumbersOfLine);
-    pvblLeftPanel->addStretch(1);
-    pvblLeftPanel->addWidget(m_pcmdSaveFile, Qt::AlignBottom);
-    pvblLeftPanel->addWidget(m_pcmdOpenFile, Qt::AlignBottom);
+    pvblLeftPanel->addStretch(3);
+    pvblLeftPanel->addLayout(pvblOptimizing);
+    pvblLeftPanel->addStretch(3);
     pvblLeftPanel->addWidget(m_pcmdQuit, Qt::AlignBottom);
 #ifdef Q_OS_WIN
     QGroupBox* pgbLeftPanel = new QGroupBox("Инструменты");
@@ -1284,6 +1300,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(m_pcmdSaveFile, SIGNAL(clicked()), SLOT(saveFile()));
     connect(m_pcmdOpenFile, SIGNAL(clicked()), SLOT(openFile()));
+
+    connect(m_pcmdOptimize, SIGNAL(clicked()), SLOT(doOptimize()));
+
     connect(m_pcmdQuit, SIGNAL(clicked()), SLOT(exitApp()));
 }
 
@@ -3772,8 +3791,17 @@ void MainWindow::openFile(void){
         if(in.status() != QTextStream::Ok){
             QMessageBox::warning(this, "OptAsm v1.0", "Ошибка открытия");
         }
+
         file.close();
-    }//if(file.open(QIODevice::ReadWrite))
+
+        //update number of line
+        m_nNumberOfLine = nLineNum + 1;
+        m_plcdNumberOfLine->display(m_nNumberOfLine);
+        if(m_nNumberOfLine != 1){
+            m_pcmdLineDown->setEnabled(true);
+        }
+
+    }//if(file.open(QIODevice::ReadWrite))    
 }
 
 void MainWindow::exitApp(void){
@@ -3799,7 +3827,7 @@ void MainWindow::exitApp(void){
 //    QMessageBox::information(this, "cycle", mes);
 
     //test4
-    insertNOPs(2, 2);
+    //insertNOPs(2, 2);
 
     //предложить сохранить данные!
     QMessageBox* pmbx = new QMessageBox(QMessageBox::Question,
@@ -3829,7 +3857,7 @@ void MainWindow::insertNOPs(int line, int count){
 
     m_pteSource->clear();
 
-    //TODO: inserting NOPs
+    //inserting NOPs
     QStringList::iterator sit;
     int index = 0;
     for (sit = str_lst.begin(); sit != str_lst.end(); ++sit) {
@@ -4407,3 +4435,49 @@ void MainWindow::insertNOPs(int line, int count){
     }
 }
 
+void MainWindow::insertNopBeforeCycle(int begin, int /*end*/){
+
+    insertNOP(begin);
+}
+
+void MainWindow::insertNopToCycle(int /*begin*/, int end){
+
+    insertNOP(end - 1);
+}
+
+void MainWindow::doOptimize(void){
+
+    const int DEC_BUF = 16;
+
+    //найти циклы
+    QVector<QPair<int, int>* >* theCode = m_ptheCode->getAllCycles();
+    qDebug() << "first cycle: " << theCode->at(0)->first << " <-> " << theCode->at(0)->second;
+    qDebug() << "second cycle: " << theCode->at(1)->first << " <-> " << theCode->at(1)->second;
+
+
+    //вычисление объема памяти и формирование новой реализации
+    QVector<int>* cycles_mem = new QVector<int>();
+    typedef QVector<QPair<int, int>* >::iterator VPIT_t;
+
+    for (VPIT_t it = theCode->begin(); it != theCode->end(); ++it) {
+
+        cycles_mem->push_back(m_ptheCode->getBytesBetweenLines((*it)->first, (*it)->second));
+        qDebug() << "cycle: " << (*it)->first << " <-> " << (*it)->second;
+    }
+
+    for (QVector<int>::iterator i = cycles_mem->begin(); i != cycles_mem->end(); ++i) {
+
+        //НЕ РАБОТАЕТ!!!
+        if ( (*i % DEC_BUF) != 0) {
+
+
+        }
+        else {
+
+
+        }
+
+        qDebug() << "mem: " << *i;
+    }
+
+}

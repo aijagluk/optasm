@@ -401,13 +401,13 @@ int GSourceCode::getBytes(int index){
 
     switch(SSType){
     case LABEL_GLOBAL:
-        nCurrentBytes = 0;
+        nCurrentBytes = 1;
         break;
     case LABEL_LOCAL:
-        nCurrentBytes = 0;
+        nCurrentBytes = 1;
         break;
     case LABEL_UNNAMED:
-        nCurrentBytes = 0;
+        nCurrentBytes = 1;
         break;
     case DATA_SINGLE:
         nCurrentBytes = 0;
@@ -1562,13 +1562,13 @@ int GSourceCode::getBytesBetweenLines(int from, int to){
 
         switch(SSType){
             case LABEL_GLOBAL:
-                sum += 0;
+                sum += 1;
                 break;
             case LABEL_LOCAL:
-                sum += 0;
+                sum += 1;
                 break;
             case LABEL_UNNAMED:
-                sum += 0;
+                sum += 1;
                 break;
             case DATA_SINGLE:
                 sum += 0;
