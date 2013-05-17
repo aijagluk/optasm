@@ -364,8 +364,8 @@ private:
 
     void insertNOP(int line);
     void insertNOPs(int line, int count);
-    void insertNopBeforeCycle(int begin, int);
-    void insertNopToCycle(int, int end);
+    void insertNopBeforeCycle(int begin);
+    void insertNopToCycle(int end);
 
 public slots:
     void makeLabelGlobal(void);

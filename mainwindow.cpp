@@ -3896,6 +3896,7 @@ void MainWindow::insertNOPs(int line, int count){
     QRegExp dup_data_regex = QRegExp("^\\w+\\s+(db|dw|du|dd|df|dp|dq|dt)\\s+\\d+\\s+dup\\s+\\(.+\\)$");
 
     int nLineNum(0);
+    GSourceCode* new_theCode = new GSourceCode();
     while(!in.atEnd()){
         ++nLineNum;
         strCodeLine = in.readLine();
@@ -4420,12 +4421,15 @@ void MainWindow::insertNOPs(int line, int count){
             QMessageBox::information(this, "OptAsm v1.0", "Инструкция не распознана");
         }
         //qDebug() << strCodeLine;
-        m_ptheCode->addString(psrcStr);
+        new_theCode->addString(psrcStr);
 
     } //while(!in.atEnd())
     if(in.status() != QTextStream::Ok){
         QMessageBox::warning(this, "OptAsm v1.0", "Ошибка обновления");
     }
+
+
+    m_ptheCode = new_theCode;
 
     //update number of line
     m_nNumberOfLine = str_lst.count() + 1;
@@ -4435,14 +4439,14 @@ void MainWindow::insertNOPs(int line, int count){
     }
 }
 
-void MainWindow::insertNopBeforeCycle(int begin, int /*end*/){
+void MainWindow::insertNopBeforeCycle(int begin){
 
     insertNOP(begin);
 }
 
-void MainWindow::insertNopToCycle(int /*begin*/, int end){
+void MainWindow::insertNopToCycle(int end){
 
-    insertNOP(end - 1);
+    insertNOP(end);
 }
 
 void MainWindow::doOptimize(void){
@@ -4451,33 +4455,86 @@ void MainWindow::doOptimize(void){
 
     //найти циклы
     QVector<QPair<int, int>* >* theCode = m_ptheCode->getAllCycles();
-    qDebug() << "first cycle: " << theCode->at(0)->first << " <-> " << theCode->at(0)->second;
-    qDebug() << "second cycle: " << theCode->at(1)->first << " <-> " << theCode->at(1)->second;
 
+    QVector<int>* bytes_before_cycle = new QVector<int>();
 
     //вычисление объема памяти и формирование новой реализации
     QVector<int>* cycles_mem = new QVector<int>();
+    QVector<int>* next_inst = new QVector<int>();
     typedef QVector<QPair<int, int>* >::iterator VPIT_t;
+
+
 
     for (VPIT_t it = theCode->begin(); it != theCode->end(); ++it) {
 
         cycles_mem->push_back(m_ptheCode->getBytesBetweenLines((*it)->first, (*it)->second));
+        next_inst->push_back(m_ptheCode->getBytes((*it)->second));
         qDebug() << "cycle: " << (*it)->first << " <-> " << (*it)->second;
+        qDebug() << "next: " << m_ptheCode->getBytes((*it)->second) << " bytes";
+        qDebug() << "bytes_before_cycle" << m_ptheCode->getBytesBetweenLines(1, (*it)->first - 1);
     }
+
+    int n(0);
+    int modulo(0);
+    int sum(0);
+    int tmp_line(0);
+    int nop_count(0);
 
     for (QVector<int>::iterator i = cycles_mem->begin(); i != cycles_mem->end(); ++i) {
 
-        //НЕ РАБОТАЕТ!!!
-        if ( (*i % DEC_BUF) != 0) {
+        modulo = DEC_BUF - (DEC_BUF + ((*i) % DEC_BUF)) % DEC_BUF;
+        nop_count = modulo - ceil(static_cast<double>(next_inst->at(n)) / 2.0);
+        tmp_line = theCode->at(n)->second + sum;
 
+        if (nop_count != 0) {
+            qDebug() << "nop_count = " << nop_count;
 
+            for (int i_tmp = 0; i_tmp < nop_count; ++i_tmp) {
+
+                insertNopToCycle(tmp_line);
+            }
         }
-        else {
 
-
-        }
+        ++n;
+        sum += nop_count;
 
         qDebug() << "mem: " << *i;
     }
 
+    qDebug() << "Циклы модифицированны.";
+
+    if (sum > m_pspinMemory->value()) {
+        QMessageBox::information(this, "OptAsm v1.0", "Отведенной под оптимизацию циклов памяти не хватает");
+    }
+
+    //вставка выравнивающих инструкций
+    theCode->clear();
+    theCode = m_ptheCode->getAllCycles();
+    int bytes_before(0);
+    modulo = 0;
+    int nops_added(0);
+
+    for (VPIT_t it = theCode->begin(); it != theCode->end(); ++it) {
+
+        bytes_before = m_ptheCode->getBytesBetweenLines(1, (*it)->first + nops_added - 1);
+        qDebug() << "bytes_before: " << bytes_before;
+
+        modulo = DEC_BUF - (DEC_BUF + (bytes_before % DEC_BUF)) % DEC_BUF;
+        qDebug() << "modulo = " << modulo;
+
+        if (modulo != 0) {
+
+            for (int i_tmp = 0; i_tmp < modulo; ++i_tmp) {
+
+                insertNopBeforeCycle( (*it)->first + nops_added );
+            }
+        }
+
+        nops_added += modulo;
+
+    }
+
+
+
+    qDebug() << "Все выровнено.";
 }

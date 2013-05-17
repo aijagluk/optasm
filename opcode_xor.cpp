@@ -152,7 +152,7 @@ void GOpcodeXOR::analyse(void){
 
     int EA_ticks = 0;
 
-    if((oper1 == BASE_REGISTER && oper2 == BASE_REGISTER)){
+    if(((oper1 == BASE_REGISTER || oper1 == ACCUMULATOR) && (oper2 == BASE_REGISTER || oper1 == ACCUMULATOR))){
         m_nTicks = 3;
         m_nBytes = 2;
     }
@@ -231,6 +231,6 @@ void GOpcodeXOR::analyse(void){
         }
     }
     else{
-        qDebug() << "command is not recognize!\n";
+        qDebug() << "XOR is not recognize!\n";
     }
 }
