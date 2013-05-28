@@ -7,6 +7,7 @@
 
 #include "opcode_jmp.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeJMP::GOpcodeJMP(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,19 @@ void GOpcodeJMP::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Осуществляет безусловный переход, модифицируя указатель команд IP "
+            "(при переходе типа NEAR) или пару регистров CS:IP (при переходе типа FAR).\n"
+            "Старое значение регистров IP и CS теряется.\n"
+            "Регистр флажков не модифицируется.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeJMP::sourceCode(void){

@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_stc.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeSTC::GOpcodeSTC(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,16 @@ void GOpcodeSTC::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblSTC);
 
-    setLayout(phblGeneral);
+    QString info_str = "Устанавливает флажок CF в 1.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeSTC::sourceCode(void){

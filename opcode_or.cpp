@@ -7,6 +7,7 @@
 
 #include "opcode_or.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeOR::GOpcodeOR(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,21 @@ void GOpcodeOR::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Реализует поразрядную булевую функцию ИЛИ (дизъюнкцию). Второй операнд играет роль маски. "
+            "Результат заносится на место первого операнда.\n"
+            "Флажки OF и CF всегда переводятся в нулевое состояние, т.к. межразрядные связи отсутствуют. "
+            "Флажки SF, ZF и PF устанавливаются в зависимости от полученного результата (по правилам арифметических "
+            "операций). Состояние флажка AF не определено.\n"
+            "Используется для установки в 1 определенных бит первого операнда.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeOR::sourceCode(void){

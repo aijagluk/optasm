@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_std.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeSTD::GOpcodeSTD(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,17 @@ void GOpcodeSTD::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblSTD);
 
-    setLayout(phblGeneral);
+    QString info_str = "Устанавливает флажок DF в 1.\n"
+            "Флажок DF устанавливают в 1 для автодекремента регистров SI и DI в командах обработки строк.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeSTD::sourceCode(void){

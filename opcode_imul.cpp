@@ -7,6 +7,7 @@
 
 #include "opcode_imul.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeIMUL::GOpcodeIMUL(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,21 @@ void GOpcodeIMUL::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит умножение аккумулятора и операнда команды. Сомножители интерпретируются как знаковые числа.\n"
+            "В операциях над байтами функцию аккумулятора выполняет регистр AL, а 16-битное произведение образуется в регистре AX.\n"
+            "Если операнд идентифицирует слово, оно умножается на аккумулятор AX, а 32-битное произведение формируется в регистрах "
+            "DX (старшая часть) и AX.\n"
+            "Если старшая половина произведения не равна 00(0000) или FF(FFFF), то флажки CF и OF устанавливаются в единицу. "
+            "Состояние остальных флажков не определено.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeIMUL::sourceCode(void){

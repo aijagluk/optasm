@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_cmc.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCMC::GOpcodeCMC(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,16 @@ void GOpcodeCMC::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblCMC);
 
-    setLayout(phblGeneral);
+    QString info_str = "Инвертирует флажок CF.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCMC::sourceCode(void){

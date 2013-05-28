@@ -7,6 +7,7 @@
 
 #include "opcode_adc.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeADC::GOpcodeADC(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,20 @@ void GOpcodeADC::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит сложение двух операндов одинаковой длины и значения флажка CF, установленного предыдущими операциями. "
+            "Если CF=0, то команда ADC эквивалентна команде ADD.\n"
+            "Устанавливает флажки CF, AF, SF, ZF, PF, OF в соответствии с результатом операции.\n"
+            "Переполнение определяется по тем же признакам, что и для команды ADD.\n"
+            "Команда используется при сложении с повышенной точностью.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeADC::sourceCode(void){

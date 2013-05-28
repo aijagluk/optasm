@@ -7,6 +7,7 @@
 
 #include "opcode_idiv.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeIDIV::GOpcodeIDIV(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,26 @@ void GOpcodeIDIV::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит деление аккумулятора и его расширения на содержимое операнда команды. "
+            "Деление выполняется над числами, интерпретированными как знаковые. Делимое должно быть в 2 раза длиннее делителя.\n"
+            "Байтовые команды делят 16-битовое число, расположенное в аккумуляторе AX, на 8-битный делитель. Частное результата "
+            "помещается в регистр AL, а остаток в регистр AH.\n"
+            "Команда, работающая со словами, делит 32-битовое число, расположенное в регистре DX (старшая часть) и аккумуляторе "
+            "AX, на 16-битный делитель. Частное результата помещается в регистр AX, а остаток в регистр DX.\n"
+            "Состояние регистра флажков не определено.\n"
+            "Если частное результата превышает разрядность аккумулятора или делитель равен нулю, генерируется прерывание типа 0, "
+            "а частное и остаток не определены. Если нет подпрограммы обработки такого прерывания, необходимо до операции деления "
+            "проверить возможность его возникновения.\n"
+            "Если результат отрицательный, частное усекается (в направлении нуля), а остаток имеет тот же знак, что и делимое.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeIDIV::sourceCode(void){

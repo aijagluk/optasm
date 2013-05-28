@@ -43,7 +43,7 @@ public:
     QPushButton* m_pcmdAddData;
     QPushButton* m_pcmdAddLabel;
     QPushButton* m_pcmdAddOpcode;
-    QPushButton* m_pcmdAddDirective;
+    //QPushButton* m_pcmdAddDirective;
     QPushButton* m_pcmdAddComment;
     QPushButton* m_pcmdQuit;
 
@@ -52,6 +52,7 @@ public:
 
     QPushButton* m_pcmdSaveFile;
     QPushButton* m_pcmdOpenFile;
+    QPushButton* m_pcmdClearFile;
 
     //Optimizing panel
     QPushButton* m_pcmdOptimize;
@@ -494,6 +495,7 @@ public slots:
     void lineCancel(void);    
     void saveFile(void);
     void openFile(void);
+    void clearFile(void);
     void exitApp(void);    
 
     void doOptimize(void);

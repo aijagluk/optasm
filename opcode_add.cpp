@@ -7,6 +7,7 @@
 
 #include "opcode_add.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeADD::GOpcodeADD(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,23 @@ void GOpcodeADD::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит сложение двух операндов одинаковой длины по правилам двоичной арифметики и заносит результат "
+            "операции на место первого операнда.\n"
+            "Устанавливает флажки CF, AF, SF, ZF, PF, OF в соответствии с результатом операции.\n"
+            "Команда производит сложение как знаковых, так и беззнаковых чисел. В случае знакового сложения переполнение определяется "
+            "по состоянию флажка OF, в случае беззнакового - по флажку переноса CF.\n"
+            "В знаковом сложении переполнение возникает при выходе байтового результата за пределы -128 <-> +127, а результата длиною "
+            "в слово - за пределы -32768 <-> +32767.\n"
+            "В беззнаковом сложении переполнение возникает, если байтовый результат больше 255, а результат длиною в слово больше 65535.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeADD::sourceCode(void){

@@ -7,6 +7,7 @@
 
 #include "opcode_cmp.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCMP::GOpcodeCMP(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,20 @@ void GOpcodeCMP::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит сравнение операндов, вычитая из первого операнда второй. При этом "
+            "операнды остаются без изменения.\n"
+            "Устанавливает флажки CF, AF, SF, ZF, PF, OF в соответствии с результатом операции. Причем "
+            "флажки CF и AF становятся флажками заема и устанавливаются в 1, если вычитаемое больше уменьшаемого.\n"
+            "При сравнении чисел повышенной точности, проще использовать команды вычитания SUB и SBB.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCMP::sourceCode(void){

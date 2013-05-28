@@ -7,6 +7,7 @@
 
 #include "opcode_not.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeNOT::GOpcodeNOT(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,19 @@ void GOpcodeNOT::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Инвертирует биты операнда, реализуя поразрядно унарную логическую функцию НЕ.\n"
+            "Регистр флажков не модифицируется.\n"
+            "Можно указывать байт или слово. При обращении к памяти необходимо использовать модификаторы BYTE или WORD "
+            "без которых команда неоднозначна.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeNOT::sourceCode(void){

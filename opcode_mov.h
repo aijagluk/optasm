@@ -35,7 +35,7 @@ public:
     QLineEdit* m_pleOp2;
 
 private:
-    QLineEdit* m_pleOp1;    
+    QLineEdit* m_pleOp1;
 
     QString m_strOp1;
     QString m_strOp2;

@@ -7,6 +7,7 @@
 
 #include "opcode_mul.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeMUL::GOpcodeMUL(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,23 @@ void GOpcodeMUL::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит умножение аккумулятора и операнда команды. Сомножители интерпретируются как беззнаковые числа.\n"
+            "В операциях над байтами функцию аккумулятора выполняет регистр AL, а 16-битное произведение образуется в регистре AX. "
+            "Максимальное значение произведения равно 255*255=65025.\n"
+            "Если операнд идентифицирует слово, оно умножается на аккумулятор AX, а 32-битное произведение формируется в регистрах "
+            "DX (старшая часть) и AX.\n"
+            "Если старшая половина произведения не равна нулю, то флажки CF и OF устанавливаются в единицу. Состояние остальных "
+            "флажков не определено.\n"
+            "При умножении на числа, которые являются степенями 2, удобнее пользоваться командой сдвига влево SAL";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeMUL::sourceCode(void){

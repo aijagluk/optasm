@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_cbw.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCBW::GOpcodeCBW(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,23 @@ void GOpcodeCBW::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblCBW);
 
-    setLayout(phblGeneral);
+    QString info_str = "Преобразует байт в слово, расширяя (копируя) знак содержимого регистра "
+            "AL в регистр AH. Если значение в регистре AL положительно, команда заполняет регистр "
+            "AH нулями, если отрицательно - единицами. Расширение знака числа, представленного "
+            "в дополнительном коде, не изменяет значение числа.\n"
+            "Регистр флажков не модифицируется.\n"
+            "Используется для превращения знакового делимого одинарной длины в делимое двойной "
+            "длины путем расширения знака. Если используется беззнаковое деление, то применяется "
+            "обнуление расширения аккумулятора (например: SUB AH, AH).";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCBW::sourceCode(void){

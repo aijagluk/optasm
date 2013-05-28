@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_cli.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCLI::GOpcodeCLI(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,17 @@ void GOpcodeCLI::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblCLI);
 
-    setLayout(phblGeneral);
+    QString info_str = "Сбрасывает флажок IF в 0.\n"
+            "Флажок IF устанавливают в 0 для запрещения восприятия аппаратных прерываний.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCLI::sourceCode(void){

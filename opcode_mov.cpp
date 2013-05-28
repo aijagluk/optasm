@@ -7,6 +7,7 @@
 
 #include "opcode_mov.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeMOV::GOpcodeMOV(QWidget *parent)
     :QWidget(parent){
@@ -22,7 +23,7 @@ void GOpcodeMOV::initUI(void){
     m_pleOp2->setAlignment(Qt::AlignCenter);
 
     QLabel* plblMOV = new QLabel("<h1><strong>mov</strong></h1>");
-    QLabel* plblComma = new QLabel("<h1><strong>,</strong></h1>");
+    QLabel* plblComma = new QLabel("<h1><strong>,</strong></h1>");    
 
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addStretch();
@@ -32,7 +33,18 @@ void GOpcodeMOV::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+
+    QString info_str = "Осуществляет передачу содержимого второго операнда в первый.\n"
+                       "Регистр флажков не модифицируется.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeMOV::sourceCode(void){

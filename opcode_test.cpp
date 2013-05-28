@@ -7,6 +7,7 @@
 
 #include "opcode_test.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeTEST::GOpcodeTEST(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,20 @@ void GOpcodeTEST::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Реализует поразрядную булевую функцию И (конъюнкцию). Второй операнд выполняет роль маски. "
+            "В отличии от AND результат никуда не заносится.\n"
+            "Флажки OF и CF всегда переводятся в нулевое состояние, т.к. межразрядные связи отсутствуют. Флажки SF, ZF и "
+            "PF устанавливаются в зависимости от полученного результата (по правилам арифметических операций). Состояние флажка AF "
+            "не определено.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeTEST::sourceCode(void){

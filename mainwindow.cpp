@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pcmdAddLabel->setMenu(pmenuLabels);
     m_pcmdAddLabel->setToolTip("Добавить метку");
 
-    m_pcmdAddDirective = new QPushButton("+ Директива");
+    //m_pcmdAddDirective = new QPushButton("+ Директива");
 
     //Opcodes
     m_pcmdAddOpcode = new QPushButton("+ Опкод");
@@ -635,6 +635,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_pcmdSaveFile = new QPushButton("Сохранить");
     m_pcmdOpenFile = new QPushButton("Открыть");
+    m_pcmdClearFile = new QPushButton("Очистить");
 
     //Optimizing panel
     m_pcmdOptimize = new QPushButton("Оптимизация");
@@ -669,11 +670,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pvblLeftPanel->addWidget(m_pcmdOpenFile, Qt::AlignBottom);
     pvblLeftPanel->addWidget(m_pcmdSaveFile, Qt::AlignBottom);
+    pvblLeftPanel->addWidget(m_pcmdClearFile, Qt::AlignBottom);
     pvblLeftPanel->addStretch(1);
     pvblLeftPanel->addWidget(m_pcmdAddData, Qt::AlignTop);
     pvblLeftPanel->addWidget(m_pcmdAddOpcode, Qt::AlignTop);
     pvblLeftPanel->addWidget(m_pcmdAddLabel, Qt::AlignTop);
-    pvblLeftPanel->addWidget(m_pcmdAddDirective, Qt::AlignTop);
+    //pvblLeftPanel->addWidget(m_pcmdAddDirective, Qt::AlignTop);
     pvblLeftPanel->addWidget(m_pcmdAddComment, Qt::AlignTop);    
     pvblLeftPanel->addStretch(3);
     pvblLeftPanel->addLayout(pvblNumbersOfLine);
@@ -1302,6 +1304,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_pcmdOpenFile, SIGNAL(clicked()), SLOT(openFile()));
 
     connect(m_pcmdOptimize, SIGNAL(clicked()), SLOT(doOptimize()));
+    connect(m_pcmdClearFile, SIGNAL(clicked()), SLOT(clearFile()));
 
     connect(m_pcmdQuit, SIGNAL(clicked()), SLOT(exitApp()));
 }
@@ -3801,7 +3804,13 @@ void MainWindow::openFile(void){
             m_pcmdLineDown->setEnabled(true);
         }
 
-    }//if(file.open(QIODevice::ReadWrite))    
+    }//if(file.open(QIODevice::ReadWrite))
+}
+
+void MainWindow::clearFile(void){
+
+    m_ptheCode = new GSourceCode();
+    m_pteSource->clear();
 }
 
 void MainWindow::exitApp(void){
@@ -4501,7 +4510,7 @@ void MainWindow::doOptimize(void){
         qDebug() << "mem: " << *i;
     }
 
-    qDebug() << "Циклы модифицированны.";
+    qDebug() << "Циклы модифицированы.";
 
     if (sum > m_pspinMemory->value()) {
         QMessageBox::information(this, "OptAsm v1.0", "Отведенной под оптимизацию циклов памяти не хватает");

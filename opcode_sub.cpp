@@ -7,6 +7,7 @@
 
 #include "opcode_sub.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeSUB::GOpcodeSUB(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,24 @@ void GOpcodeSUB::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит вычитание второго операнда из первого и заносит результат на место "
+            "первого операнда. Операнды должны иметь одну длину.\n"
+            "Устанавливает флажки CF, AF, SF, ZF, PF, OF в соответствии с результатом операции. Причем "
+            "флажки CF и AF становятся флажками заема и устанавливаются в 1, если вычитаемое больше уменьшаемого.\n"
+            "Команда производит вычитание как знаковых, так и беззнаковых чисел. В случае знакового вычиания "
+            "переполнение определяется по флажку OF, в случае беззнакового вычитания установка флажка CF в 1 "
+            "означает, что вычитаемое больше уменьшаемого.\n"
+            "В знаковом вычитании переполнение возникает при выходе байтового результата за пределы -128 <-> +127, "
+            "а результата длиною в слово - за пределы -32768 <-> +32767.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeSUB::sourceCode(void){

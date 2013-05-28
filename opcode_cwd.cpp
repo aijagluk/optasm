@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_cwd.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCWD::GOpcodeCWD(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,22 @@ void GOpcodeCWD::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblCWD);
 
-    setLayout(phblGeneral);
+    QString info_str = "Преобразует слово в двойное слово, расширяя (копируя) знак содержимого регистра AX в регистр DX. "
+            "Если значение в регистре AX положительно, команда заполняет DX нулями, если отрицательно - единицами. "
+            "Расширение знака числа, представленного в дополнительном коде, не изменяет значение числа.\n"
+            "Регистр флажков не модифицируется.\n"
+            "Используется для превращения знакового делимого одинарной длины в делимое двойной длины путем расширения "
+            "знака. Если используется беззнаковое деление, то применяется обнуление расширения аккумулятора "
+            "(например: SUB DX, DX).";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCWD::sourceCode(void){

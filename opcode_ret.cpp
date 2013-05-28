@@ -7,6 +7,7 @@
 
 #include "opcode_ret.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeRET::GOpcodeRET(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,20 @@ void GOpcodeRET::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Возвращает управление вызывающей программе. Команда возврата - это косвенный переход, "
+            "т.к. адрес перехода извлекается из вершины стека.\n"
+            "Команда возврата с операндом-константой дополнительно прибавляет содержащееся в ней данное, "
+            "к указателю стека SP, что упрощает возврат из подпрограмм, параметры которых передаются в стеке.\n"
+            "Регистр флажков не модифицируется.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeRET::sourceCode(void){

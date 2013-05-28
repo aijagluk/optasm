@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_sti.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeSTI::GOpcodeSTI(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,17 @@ void GOpcodeSTI::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblSTI);
 
-    setLayout(phblGeneral);
+    QString info_str = "Устанавливает флажок IF в 1.\n"
+            "Флажок IF устанавливают в 1 для разрешения восприятия аппаратных прерываний.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeSTI::sourceCode(void){

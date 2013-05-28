@@ -7,6 +7,7 @@
 
 #include "opcode_dec.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeDEC::GOpcodeDEC(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,17 @@ void GOpcodeDEC::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Уменьшает содержимое операнда на 1. Операнд считается беззнаковым числом.\n"
+            "Устанавливает в зависимости от результата все арифметические флажки, за исключением флажка CF.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeDEC::sourceCode(void){

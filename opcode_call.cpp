@@ -7,6 +7,7 @@
 
 #include "opcode_call.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCALL::GOpcodeCALL(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,17 @@ void GOpcodeCALL::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Передает управление подпрограмме с автоматическим сохранением адреса возврата в стеке.\n"
+            "Регистр флажков не модифицируется.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCALL::sourceCode(void){

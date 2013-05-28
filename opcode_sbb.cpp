@@ -7,6 +7,7 @@
 
 #include "opcode_sbb.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeSBB::GOpcodeSBB(QWidget *parent)
     :QWidget(parent){
@@ -32,7 +33,22 @@ void GOpcodeSBB::initUI(void){
     phblGeneral->addWidget(m_pleOp2);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Производит вычитание второго операнда из первого. Из полученной разности вычитается "
+            "значение флажка CF, установленного предыдущими операциями. Полученный результат заносится на "
+            "место первого операнда.\n"
+            "Устанавливает флажки CF, AF, SF, ZF, PF, OF в соответствии с результатом операции. Причем "
+            "флажки CF и AF становятся флажками заема и устанавливаются в 1, если вычитаемое больше уменьшаемого.\n"
+            "Наличие заема и переполнение определяется по тем же признакам, что и для команды SUB.\n"
+            "Команда SBB используется при вычитании с повышенной точностью, т.к. учитывает заем.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeSBB::sourceCode(void){

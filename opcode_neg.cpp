@@ -7,6 +7,7 @@
 
 #include "opcode_neg.h"
 #include "services_types.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeNEG::GOpcodeNEG(QWidget *parent)
     :QWidget(parent){
@@ -27,7 +28,19 @@ void GOpcodeNEG::initUI(void){
     phblGeneral->addWidget(m_pleOp);
     phblGeneral->addStretch();
 
-    setLayout(phblGeneral);
+    QString info_str = "Изменяет знак операнда образованием дополнительного кода. Если операнд "
+            "равен нулю, его значение не изменяется.\n"
+            "Команда модифицирует все арифметические флажки. Флажок CF всегда устанавливается в "
+            "нулевое состояние, за исключением случая, конда операнд равен нулю, - тогда CF=0.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeNEG::sourceCode(void){

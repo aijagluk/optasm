@@ -6,6 +6,7 @@
 **********************************************************************/
 
 #include "opcode_clc.h"
+#include <QtWidgets/QTextEdit>
 
 GOpcodeCLC::GOpcodeCLC(QWidget *parent)
     :QWidget(parent){
@@ -19,7 +20,16 @@ void GOpcodeCLC::initUI(void){
     QHBoxLayout* phblGeneral = new QHBoxLayout();
     phblGeneral->addWidget(plblCLC);
 
-    setLayout(phblGeneral);
+    QString info_str = "Сбросывает флажок СF в 0.";
+    QTextEdit* info = new QTextEdit();
+    info->setText(info_str);
+    info->setReadOnly(true);
+
+    QVBoxLayout* pvblGeneral = new QVBoxLayout();
+    pvblGeneral->addWidget(info);
+    pvblGeneral->addLayout(phblGeneral);
+
+    setLayout(pvblGeneral);
 }
 
 QString GOpcodeCLC::sourceCode(void){
