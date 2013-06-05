@@ -3811,6 +3811,7 @@ void MainWindow::clearFile(void){
 
     m_ptheCode = new GSourceCode();
     m_pteSource->clear();
+    m_pcmdOptimize->setEnabled(true);
 }
 
 void MainWindow::exitApp(void){
@@ -4461,11 +4462,12 @@ void MainWindow::insertNopToCycle(int end){
 void MainWindow::doOptimize(void){
 
     const int DEC_BUF = 16;
+    m_pcmdOptimize->setEnabled(false);
 
     //найти циклы
     QVector<QPair<int, int>* >* theCode = m_ptheCode->getAllCycles();
 
-    QVector<int>* bytes_before_cycle = new QVector<int>();
+    //QVector<int>* bytes_before_cycle = new QVector<int>();
 
     //вычисление объема памяти и формирование новой реализации
     QVector<int>* cycles_mem = new QVector<int>();
@@ -4488,12 +4490,23 @@ void MainWindow::doOptimize(void){
     int sum(0);
     int tmp_line(0);
     int nop_count(0);
+    QString tmpMessage;
+    QVector<int>* tmpDecode = new QVector<int>();
 
     for (QVector<int>::iterator i = cycles_mem->begin(); i != cycles_mem->end(); ++i) {
 
         modulo = DEC_BUF - (DEC_BUF + ((*i) % DEC_BUF)) % DEC_BUF;
         nop_count = modulo - ceil(static_cast<double>(next_inst->at(n)) / 2.0);
         tmp_line = theCode->at(n)->second + sum;
+
+        tmpDecode->push_back(m_ptheCode->getTicksBetweenLines(theCode->at(n)->first, theCode->at(n)->second));
+        tmpMessage.append("Время декодирования (без оптимизации) ");
+        tmpMessage.append(QString::number(n+1));
+        tmpMessage.append("-го цикла: ");
+        tmpMessage.append(QString::number(tmpDecode->at(n) + static_cast<double>(next_inst->at(n))));
+        tmpMessage.append(" такта(-ов).");
+        QMessageBox::information(this, "OptAsm", tmpMessage);
+        tmpMessage.clear();
 
         if (nop_count != 0) {
             qDebug() << "nop_count = " << nop_count;
@@ -4509,6 +4522,19 @@ void MainWindow::doOptimize(void){
 
         qDebug() << "mem: " << *i;
     }
+
+    n = 0;
+    for (QVector<int>::iterator i = tmpDecode->begin(); i != tmpDecode->end(); ++i) {
+
+        tmpMessage.append("Время декодирования (после оптимизации) ");
+        tmpMessage.append(QString::number(++n));
+        tmpMessage.append("-го цикла: ");
+        tmpMessage.append(QString::number(*i + 1));
+        tmpMessage.append(" такта(-ов).");
+        QMessageBox::information(this, "OptAsm", tmpMessage);
+        tmpMessage.clear();
+    }
+
 
     qDebug() << "Циклы модифицированы.";
 

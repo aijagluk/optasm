@@ -1192,316 +1192,316 @@ int GSourceCode::getTicksBetweenLines(int from, int to){
                 sum += 0;
                 break;
             case OPCODE_MOV:
-                sum += ((GOpcodeMOV*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeMOV*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_XCHG:
-                sum += ((GOpcodeXCHG*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeXCHG*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_XLAT:
-                sum += ((GOpcodeXLAT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeXLAT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LEA:
-                sum += ((GOpcodeLEA*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLEA*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LDS:
-                sum += ((GOpcodeLDS*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLDS*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LES:
-                sum += ((GOpcodeLES*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLES*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LAHF:
-                sum += ((GOpcodeLAHF*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLAHF*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SAHF:
-                sum += ((GOpcodeSAHF*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSAHF*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_PUSH:
-                sum += ((GOpcodePUSH*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodePUSH*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_POP:
-                sum += ((GOpcodePOP*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodePOP*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_PUSHF:
-                sum += ((GOpcodePUSHF*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodePUSHF*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_POPF:
-                sum += ((GOpcodePOPF*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodePOPF*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_IN:
-                sum += ((GOpcodeIN*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeIN*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_OUT:
-                sum += ((GOpcodeOUT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeOUT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_ADD:
-                sum += ((GOpcodeADD*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeADD*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_ADC:
-                sum += ((GOpcodeADC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeADC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SUB:
-                sum += ((GOpcodeSUB*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSUB*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SBB:
-                sum += ((GOpcodeSBB*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSBB*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CMP:
-                sum += ((GOpcodeCMP*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCMP*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_MUL:
-                sum += ((GOpcodeMUL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeMUL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_IMUL:
-                sum += ((GOpcodeIMUL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeIMUL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_DIV:
-                sum += ((GOpcodeDIV*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeDIV*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_IDIV:
-                sum += ((GOpcodeIDIV*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeIDIV*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_INC:
-                sum += ((GOpcodeINC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeINC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_DEC:
-                sum += ((GOpcodeDEC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeDEC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_NEG:
-                sum += ((GOpcodeNEG*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeNEG*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CBW:
-                sum += ((GOpcodeCBW*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCBW*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CWD:
-                sum += ((GOpcodeCWD*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCWD*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_DAA:
-                sum += ((GOpcodeDAA*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeDAA*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_DAS:
-                sum += ((GOpcodeDAS*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeDAS*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_AAA:
-                sum += ((GOpcodeAAA*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeAAA*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_AAS:
-                sum += ((GOpcodeAAS*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeAAS*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_AAM:
-                sum += ((GOpcodeAAM*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeAAM*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_AAD:
-                sum += ((GOpcodeAAD*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeAAD*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_AND:
-                sum += ((GOpcodeAND*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeAND*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_OR:
-                sum += ((GOpcodeOR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeOR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_XOR:
-                sum += ((GOpcodeXOR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeXOR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_NOT:
-                sum += ((GOpcodeNOT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeNOT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_TEST:
-                sum += ((GOpcodeTEST*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeTEST*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_RCL:
-                sum += ((GOpcodeRCL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeRCL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_RCR:
-                sum += ((GOpcodeRCR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeRCR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_ROL:
-                sum += ((GOpcodeROL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeROL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_ROR:
-                sum += ((GOpcodeROR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeROR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SAL:
-                sum += ((GOpcodeSAL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSAL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SAR:
-                sum += ((GOpcodeSAR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSAR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SHL:
-                sum += ((GOpcodeSHL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSHL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_SHR:
-                sum += ((GOpcodeSHR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSHR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_BT:
-                sum += ((GOpcodeBT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeBT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_BTC:
-                sum += ((GOpcodeBTC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeBTC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_BTR:
-                sum += ((GOpcodeBTR*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeBTR*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_BTS:
-                sum += ((GOpcodeBTS*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeBTS*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JMP:
-                sum += ((GOpcodeJMP*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJMP*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CALL:
-                sum += ((GOpcodeCALL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCALL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_RET:
-                sum += ((GOpcodeRET*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeRET*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JL:
-                sum += ((GOpcodeJL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNGE:
-                sum += ((GOpcodeJNGE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNGE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNL:
-                sum += ((GOpcodeJNL*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNL*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JGE:
-                sum += ((GOpcodeJGE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJGE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JLE:
-                sum += ((GOpcodeJLE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJLE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNG:
-                sum += ((GOpcodeJNG*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNG*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNLE:
-                sum += ((GOpcodeJNLE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNLE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JG:
-                sum += ((GOpcodeJG*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJG*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JB:
-                sum += ((GOpcodeJB*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJB*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNAE:
-                sum += ((GOpcodeJNAE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNAE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JC:
-                sum += ((GOpcodeJC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JBE:
-                sum += ((GOpcodeJBE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJBE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNA:
-                sum += ((GOpcodeJNA*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNA*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNB:
-                sum += ((GOpcodeJNB*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNB*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JAE:
-                sum += ((GOpcodeJAE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJAE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNC:
-                sum += ((GOpcodeJNC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNBE:
-                sum += ((GOpcodeJNBE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNBE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JA:
-                sum += ((GOpcodeJA*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJA*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JE:
-                sum += ((GOpcodeJE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JZ:
-                sum += ((GOpcodeJZ*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJZ*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JP:
-                sum += ((GOpcodeJP*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJP*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JPE:
-                sum += ((GOpcodeJPE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJPE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JO:
-                sum += ((GOpcodeJO*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJO*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JS:
-                sum += ((GOpcodeJS*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJS*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNE:
-                sum += ((GOpcodeJNE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNZ:
-                sum += ((GOpcodeJNZ*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNZ*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNP:
-                sum += ((GOpcodeJNP*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNP*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JPO:
-                sum += ((GOpcodeJPO*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJPO*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNO:
-                sum += ((GOpcodeJNO*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNO*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JNS:
-                sum += ((GOpcodeJNS*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJNS*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_JCXZ:
-                sum += ((GOpcodeJCXZ*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeJCXZ*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LOOP:
-                sum += ((GOpcodeLOOP*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLOOP*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LOOPE:
-                sum += ((GOpcodeLOOPE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLOOPE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LOOPZ:
-                sum += ((GOpcodeLOOPZ*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLOOPZ*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LOOPNE:
-                sum += ((GOpcodeLOOPNE*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLOOPNE*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LOOPNZ:
-                sum += ((GOpcodeLOOPNZ*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLOOPNZ*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_INT:
-                sum += ((GOpcodeINT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeINT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_INTO:
-                sum += ((GOpcodeINTO*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeINTO*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CLC:
-                sum += ((GOpcodeCLC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCLC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_STC:
-                sum += ((GOpcodeSTC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSTC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CMC:
-                sum += ((GOpcodeCMC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCMC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CLD:
-                sum += ((GOpcodeCLD*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCLD*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_STD:
-                sum += ((GOpcodeSTD*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSTD*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_CLI:
-                sum += ((GOpcodeCLI*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeCLI*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_STI:
-                sum += ((GOpcodeSTI*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeSTI*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_HLT:
-                sum += ((GOpcodeHLT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeHLT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_WAIT:
-                sum += ((GOpcodeWAIT*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeWAIT*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_LOCK:
-                sum += ((GOpcodeLOCK*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeLOCK*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_ESC:
-                sum += ((GOpcodeESC*)(*it)->sourceStringBase())->ticks();
+                sum += 1; //((GOpcodeESC*)(*it)->sourceStringBase())->ticks();
                 break;
             case OPCODE_NOP:
-                sum += ((GOpcodeNOP*)(*it)->sourceStringBase())->ticks();
+                sum += 0; //((GOpcodeNOP*)(*it)->sourceStringBase())->ticks();
                 break;
 //            case OPCODE_REP_MOVS:
 //                sum += ((GOpcodeREP_MOVS*)(*it)->sourceStringBase())->ticks();
